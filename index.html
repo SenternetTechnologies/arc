@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARRAHMAN Construction WebApp</title>
+    <style>
+        /*
+         * Reset default browser margins and padding on the body and html 
+         * to allow the iframe to truly fill the entire screen.
+         */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Prevents scrollbars from showing up on the outer page */
+        }
+
+        /*
+         * Styles for the responsive iframe
+         */
+        .webapp-container {
+            width: 100%;
+            /* 100vh means 100% of the viewport height, ensuring it fills the screen */
+            height: 100vh; 
+        }
+
+        .webapp-iframe {
+            width: 100%;
+            height: 100%;
+            /* Removes the default iframe border for a cleaner look */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="webapp-container">
+        <iframe 
+            class="webapp-iframe" 
+            src="https://script.google.com/macros/s/AKfycbwZzOGZo4bDzhb6pcBownf_Xywluc1PVDPWnLCX8VEDjlz0Hk85zZbijQYGJkSKUIftSA/exec" 
+            loading="lazy"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+</body>
+</html>
