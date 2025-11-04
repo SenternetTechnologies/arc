@@ -3,47 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARRAHMAN Construction WebApp</title>
+    <title>StarMaker DreamWork - Multi-Promotion Event Dashboard</title>
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for custom colors and font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'starmaker-green': '#4CAF50',
+                        'starmaker-dark': '#388E3C',
+                        'bg-light': '#f8f8f8',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Custom styling for iframes to ensure they fill the space -->
     <style>
-        /*
-         * Reset default browser margins and padding on the body and html 
-         * to allow the iframe to truly fill the entire screen.
-         */
-        html, body {
-            margin: 0;
-            padding: 0;
+        .iframe-wrapper {
+            /* Fixed height for display consistency in the grid */
+            height: 400px; 
+        }
+        iframe {
+            /* Ensure iframe takes up all available space within its wrapper */
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Prevents scrollbars from showing up on the outer page */
-        }
-
-        /*
-         * Styles for the responsive iframe
-         */
-        .webapp-container {
-            width: 100%;
-            /* 100vh means 100% of the viewport height, ensuring it fills the screen */
-            height: 100vh; 
-        }
-
-        .webapp-iframe {
-            width: 100%;
-            height: 100%;
-            /* Removes the default iframe border for a cleaner look */
-            border: none;
         }
     </style>
 </head>
-<body>
+<body class="bg-bg-light font-sans min-h-screen flex flex-col">
 
-    <div class="webapp-container">
-        <iframe 
-            class="webapp-iframe" 
-            src="https://script.google.com/macros/s/AKfycbwZzOGZo4bDzhb6pcBownf_Xywluc1PVDPWnLCX8VEDjlz0Hk85zZbijQYGJkSKUIftSA/exec" 
-            loading="lazy"
-            allowfullscreen>
-        </iframe>
+    <!-- Header Section with Mobile-First Design -->
+    <header class="text-center p-4 sm:p-6 bg-starmaker-green text-white shadow-xl">
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">StarMaker DreamWork - Promotion Dashboard</h1>
+        <p class="text-sm mt-1 opacity-90">10 Live Events Monitoring for Research (Data loads in iFrames)</p>
+    </header>
+
+    <!-- Main Content Grid -->
+    <div class="container mx-auto p-3 sm:p-5 flex-grow">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="iframeContainer">
+            <!-- iFrames will be injected here by JavaScript -->
+        </div>
     </div>
+
+    <!-- Footer Section with SENTERNET TECHNOLOGIES Branding -->
+    <footer class="bg-gray-800 text-white p-4 sm:p-6 mt-6 shadow-2xl">
+        <div class="container mx-auto text-center">
+            <p class="text-lg font-semibold mb-2 text-starmaker-green">A Digital Marketing & Web Design Project by</p>
+            <h3 class="text-2xl font-extrabold tracking-wider">SENTERNET TECHNOLOGIES</h3>
+            <div class="mt-3 text-sm flex flex-col sm:flex-row justify-center space-y-1 sm:space-y-0 sm:space-x-4">
+                <span class="opacity-80">📍 Aranthangi</span>
+                <span class="opacity-80">📱 +91 81900 38085</span>
+                <span class="opacity-80">📧 senternettechnologies@gmail.com</span>
+            </div>
+            <p class="mt-4 text-xs opacity-70">Specializing in Website Conversion & Graphic Design.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('iframeContainer');
+            // Base URL and fixed parameters as provided by the user
+            const baseUrl = "https://m.starmakerstudios.com/a/spa-dreamWorks/index";
+            const fixedParams = "&showBar=0&showNavigation=false&new=true&isStatusBarStyle=true"; 
+            
+            // Starting with the provided Promotion ID and generating 10
+            const startingPromotionId = 5925; 
+            const numberOfIframes = 10;
+
+            for (let i = 0; i < numberOfIframes; i++) {
+                const promotionId = startingPromotionId + i;
+                const fullUrl = `${baseUrl}?promotion_id=${promotionId}${fixedParams}`;
+
+                // Create wrapper with Tailwind styling
+                const wrapper = document.createElement('div');
+                wrapper.className = 'iframe-wrapper bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 p-2 flex flex-col border border-gray-200';
+
+                // Display the Promotion ID clearly
+                const title = document.createElement('div');
+                title.className = 'iframe-title text-center text-sm font-bold text-gray-700 p-1 mb-1 border-b border-gray-100';
+                title.textContent = `Promotion ID: ${promotionId}`;
+                wrapper.appendChild(title);
+
+                // Create iframe element
+                const iframe = document.createElement('iframe');
+                iframe.setAttribute('src', fullUrl);
+                iframe.setAttribute('loading', 'lazy'); 
+                iframe.setAttribute('title', `Promotion Dashboard ${promotionId}`);
+                iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-forms'); // Added sandbox for security/compatibility
+                wrapper.appendChild(iframe);
+
+                container.appendChild(wrapper);
+            }
+        });
+    </script>
 
 </body>
 </html>
+
