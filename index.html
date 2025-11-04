@@ -43,11 +43,11 @@
 
     <!-- Header Section with Mobile-First Design -->
     <header class="text-center p-4 sm:p-6 bg-starmaker-green text-white shadow-xl">
-        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">StarMaker DreamWork - Custom Promotion Dashboard</h1>
-        <p class="text-sm mt-1 opacity-90">11 Handpicked Events Monitoring (Click card to open in main window)</p>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">StarMaker DreamWork - Cache Reset Attempt</h1>
+        <p class="text-sm mt-1 opacity-90 font-semibold">Clicking a card attempts to clear browser storage before redirecting for a 'Fresh' session.</p>
     </header>
 
-    <!-- Main Content Grid: Updated for 4 columns on large screens (lg:grid-cols-4) -->
+    <!-- Main Content Grid: 4 cards on large screens -->
     <div class="container mx-auto p-3 sm:p-5 flex-grow">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="iframeContainer">
             <!-- iFrames will be injected here by JavaScript -->
@@ -75,13 +75,36 @@
             const baseUrl = "https://m.starmakerstudios.com/a/spa-dreamWorks/index";
             const fixedParams = "&showBar=0&showNavigation=false&new=true&isStatusBarStyle=true"; 
             
-            // Custom list of promotion IDs provided by Senthilkumar
+            // Custom list of promotion IDs
             const promotionIds = [
                 5925, 2711, 65777, 53939, 34448, 49399, 22225, 60223, 69686, 28440, 37838
             ]; 
             
+            // --- FUNCTION TO AGGRESSIVELY CLEAR BROWSER STATE (WORKAROUND) ---
+            function aggressiveCacheClear() {
+                try {
+                    // 1. Clear Local Storage for the current domain (the dashboard's domain)
+                    localStorage.clear();
+                    console.log('Local Storage cleared successfully.');
+
+                    // 2. Aggressively clear cookies for the current domain
+                    document.cookie.split(";").forEach((c) => {
+                        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+                    });
+                    console.log('Cookies cleared successfully.');
+                    
+                    // 3. Optional: Clear Session Storage
+                    sessionStorage.clear();
+                    console.log('Session Storage cleared successfully.');
+                    
+                } catch (e) {
+                    console.error('Error attempting to clear browser storage:', e);
+                }
+                
+                // Note: This only clears the *dashboard's* browser data. It cannot clear the StarMaker *app's* internal cache.
+            }
+
             promotionIds.forEach((promotionId, index) => {
-                // DreamWork number is 1-based index (1, 2, 3...)
                 const dreamWorkNumber = index + 1;
                 const fullUrl = `${baseUrl}?promotion_id=${promotionId}${fixedParams}`;
 
@@ -92,9 +115,14 @@
                 // Store the full URL in a data attribute
                 wrapper.dataset.url = fullUrl;
 
-                // Add click event listener to the entire card to redirect
+                // Add click event listener to the entire card
                 wrapper.addEventListener('click', function() {
                     const urlToRedirect = this.dataset.url;
+                    
+                    // CALL THE AGGRESSIVE RESET FUNCTION HERE
+                    aggressiveCacheClear(); 
+                    
+                    // Redirects the current window/tab (the main running app) to the iframe's source URL
                     window.location.href = urlToRedirect; 
                 });
 
