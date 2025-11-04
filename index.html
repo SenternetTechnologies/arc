@@ -3,149 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StarMaker DreamWork - Multi-Promotion Event Dashboard</title>
-    <!-- Load Tailwind CSS via CDN -->
+    <title>SENTERNET | Starmaker Cansing Cover Promotion</title>
+    <!-- Tailwind CSS loaded for modern, responsive, mobile-first design -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configure Tailwind for custom colors and font -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'starmaker-green': '#4CAF50',
-                        'starmaker-dark': '#388E3C',
-                        'bg-light': '#f8f8f8',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-    <!-- Custom styling for iframes to ensure they fill the space -->
     <style>
-        .iframe-wrapper {
-            /* Fixed height for display consistency in the grid */
-            height: 400px; 
-            box-sizing: border-box;
+        /* Custom Styles for the dashboard */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            padding: 1rem;
         }
-        iframe {
-            /* Ensure iframe takes up all available space within its wrapper */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card-view {
+            transition: all 0.3s ease-in-out;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden; 
+            border: 2px solid #10b981; /* Green border for loaded */
+            background-color: #f0fff4;
+        }
+        .iframe-preview {
             width: 100%;
-            height: 100%;
-            /* Setting pointer-events to none so clicks always hit the wrapper behind the iframe. */
-            pointer-events: none; 
+            /* Keep iframe height small for 100 views to fit */
+            height: 56px; /* Aspect Ratio 16:9 for tiny thumbnail */
+            display: block;
+        }
+        .status-badge {
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.65rem;
+            background-color: #10b981; /* Green */
+            color: white;
+        }
+        /* Marquee specific styling */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-block;
+            padding-right: 100%; /* Important for continuous loop */
         }
     </style>
 </head>
-<body class="bg-bg-light font-sans min-h-screen flex flex-col">
+<body>
 
-    <!-- Header Section with Mobile-First Design -->
-    <header class="text-center p-4 sm:p-6 bg-starmaker-green text-white shadow-xl">
-        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">StarMaker DreamWork - Cache Reset Attempt</h1>
-        <p class="text-sm mt-1 opacity-90 font-semibold">Clicking a card attempts to clear browser storage before redirecting for a 'Fresh' session.</p>
-    </header>
+    <div class="dashboard-container">
+        <header class="text-center py-6 bg-white rounded-xl shadow-lg mb-6">
+            <!-- 1. Title Update -->
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-indigo-700">SENTERNET | STARMAKER CANSING COVER PROMOTION</h1>
+            <!-- 2. Subtitle Update -->
+            <p class="text-sm sm:text-base text-gray-600 mt-2">You can promote your song to 100 real users.</p>
+        </header>
 
-    <!-- Main Content Grid: 4 cards on large screens -->
-    <div class="container mx-auto p-3 sm:p-5 flex-grow">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="iframeContainer">
-            <!-- iFrames will be injected here by JavaScript -->
+        <!-- Marquee Section (Using Mock Data from User's previous code concept) -->
+        <div class="bg-yellow-100 p-2 rounded-xl shadow-lg mb-6 border border-yellow-300">
+            <div class="flex items-center space-x-3">
+                <span class="text-xl text-yellow-700">📢</span>
+                <!-- Marquee Tag Implementation -->
+                <marquee behavior="scroll" direction="left" scrollamount="6" class="flex-grow text-sm font-semibold text-gray-800 marquee-container">
+                    <div class="flex items-center space-x-12 marquee-content">
+                        <!-- Marquee item 1: Profile and Stage Name -->
+                        <div class="flex items-center">
+                            <img src="https://improxy.starmakerstudios.com/tools/im/200/production/users/844424932338727/profile.jpg?ts=1761994660" 
+                                onerror="this.onerror=null;this.src='https://placehold.co/30x30/1D4ED8/ffffff?text=U';" 
+                                alt="User Profile"
+                                class="w-8 h-8 rounded-full border border-yellow-500 inline-block align-middle">
+                            <span class="inline-block text-base text-pink-700 font-extrabold ml-2">LIVE PROMOTION: 🔥𓆩🅲🆂𓆪🔥🖤𓅋🄴ує༗𝆺𝅥𒁍's Cover is gaining 100 unique SIDs!</span>
+                        </div>
+                        
+                        <!-- Marquee item 2: Promotional Message -->
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/30x30/6366F1/ffffff?text=ST" 
+                                alt="SENTERNET Logo"
+                                class="w-8 h-8 rounded-full border border-yellow-500 inline-block align-middle">
+                            <span class="inline-block text-base text-indigo-700 font-extrabold ml-2">SENTERNET TECHNOLOGIES - Get Your Song Famous Today! WhatsApp: +91 81900 38085</span>
+                        </div>
+                    </div>
+                </marquee>
+            </div>
         </div>
+
+        <!-- Control Panel -->
+        <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Link Loader</h2>
+            <div class="flex flex-col md:flex-row gap-4 mb-4">
+                <input type="url" id="targetLink" placeholder="Paste StarMaker Link Here (e.g., https://m.starmakerstudios.com/...)"
+                       class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
+                       value="https://m.starmakerstudios.com/a-vue3/playrecording?app=tvp&from_sid=62170253516&guide_type=2&pg_rf_ca_vn=22&pid=recordingsharing&recordingId=844425005226760&share_type=copyLink">
+                <button id="startButton" 
+                        class="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
+                    🚀 Load 100 Unique Sessions
+                </button>
+            </div>
+            <p id="globalStatus" class="text-sm font-medium text-center p-2 rounded-lg text-gray-700">
+                Unga StarMaker link-a pottu 'Load' pannunga. 100 unique session IDs-oda open aagum.
+            </p>
+        </div>
+
+        <!-- Live View Cards Container -->
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">100 Promotion Session Status (Visual Monitoring)</h2>
+            <div id="viewsContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+                <!-- 100 Session Cards will be injected here -->
+            </div>
+        </div>
+        
     </div>
 
-    <!-- Footer Section with SENTERNET TECHNOLOGIES Branding -->
-    <footer class="bg-gray-800 text-white p-4 sm:p-6 mt-6 shadow-2xl">
-        <div class="container mx-auto text-center">
-            <p class="text-lg font-semibold mb-2 text-starmaker-green">A Digital Marketing & Web Design Project by</p>
-            <h3 class="text-2xl font-extrabold tracking-wider">SENTERNET TECHNOLOGIES</h3>
-            <div class="mt-3 text-sm flex flex-col sm:flex-row justify-center space-y-1 sm:space-y-0 sm:space-x-4">
-                <span class="opacity-80">📍 Aranthangi</span>
-                <span class="opacity-80">📱 +91 81900 38085</span>
-                <span class="opacity-80">📧 senternettechnologies@gmail.com</span>
-            </div>
-            <p class="mt-4 text-xs opacity-70">Specializing in Website Conversion & Graphic Design.</p>
-        </div>
+    <!-- SENTERNET Footer -->
+    <footer class="mt-8 text-center text-sm text-gray-500 p-4 border-t border-gray-200 w-full max-w-full mx-auto">
+        <p>A Project by SENTERNET TECHNOLOGIES - <span class="text-indigo-600 font-medium">Web Automation & Digital Marketing</span></p>
+        <p>Location: Aranthangi | WhatsApp: +91 81900 38085 | Gmail: senternettechnologies@gmail.com</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('iframeContainer');
-            // Base URL and fixed parameters
-            const baseUrl = "https://m.starmakerstudios.com/a/spa-dreamWorks/index";
-            const fixedParams = "&showBar=0&showNavigation=false&new=true&isStatusBarStyle=true"; 
-            
-            // Custom list of promotion IDs
-            const promotionIds = [
-                5925, 2711, 65777, 53939, 34448, 49399, 22225, 60223, 69686, 28440, 37838
-            ]; 
-            
-            // --- FUNCTION TO AGGRESSIVELY CLEAR BROWSER STATE (WORKAROUND) ---
-            function aggressiveCacheClear() {
-                try {
-                    // 1. Clear Local Storage for the current domain (the dashboard's domain)
-                    localStorage.clear();
-                    console.log('Local Storage cleared successfully.');
+        // === Global Configuration ===
+        const NUMBER_OF_SESSIONS = 100;
+        
+        // === DOM Elements ===
+        const viewsContainer = document.getElementById('viewsContainer');
+        const startButton = document.getElementById('startButton');
+        const globalStatus = document.getElementById('globalStatus');
+        const targetLinkInput = document.getElementById('targetLink');
 
-                    // 2. Aggressively clear cookies for the current domain
-                    document.cookie.split(";").forEach((c) => {
-                        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-                    });
-                    console.log('Cookies cleared successfully.');
-                    
-                    // 3. Optional: Clear Session Storage
-                    sessionStorage.clear();
-                    console.log('Session Storage cleared successfully.');
-                    
+        // === Utility Functions ===
+
+        /**
+         * StarMaker link-a parse panni, from_sid-a unique-ah maathi kudukkum.
+         * Logic: Original SID + Session ID (1 to 100)
+         */
+        function createUniqueStarMakerUrl(originalLink, sessionId) {
+            try {
+                const url = new URL(originalLink);
+                const params = url.searchParams;
+                
+                // 1. Get the original SID and convert to BigInt for safe math
+                const originalSidString = params.get('from_sid');
+                let originalSid;
+
+                // Check if SID exists and is a valid number
+                if (!originalSidString) {
+                     // Fallback: If no from_sid is present, we cannot execute the +1 logic.
+                     // Throw error to notify the user.
+                     throw new Error("'from_sid' parameter missing in the link.");
+                }
+
+                try {
+                    originalSid = BigInt(originalSidString);
                 } catch (e) {
-                    console.error('Error attempting to clear browser storage:', e);
+                    // If parsing fails (not a number)
+                    throw new Error("The 'from_sid' value is not a valid number.");
                 }
                 
-                // Note: This only clears the *dashboard's* browser data. It cannot clear the StarMaker *app's* internal cache.
+                // 2. Add the session index (sessionId: 1, 2, 3... 100) to the original SID
+                const uniqueSidBigInt = originalSid + BigInt(sessionId);
+                const uniqueSid = uniqueSidBigInt.toString(); 
+
+                // Overwrite the existing from_sid parameter with the unique ID
+                params.set('from_sid', uniqueSid);
+
+                // Add autoplay and mute for better iframe loading success
+                params.set('autoplay', '1');
+                params.set('mute', '1');
+                
+                // Reconstruct the full URL
+                return url.origin + url.pathname + '?' + params.toString();
+
+            } catch (e) {
+                console.error("URL/SID Parsing Error:", e.message);
+                throw new Error(e.message);
             }
+        }
+        
+        // Creates the small monitoring card containing the actual IFRAME
+        function createCard(index, initialSrc, uniqueSid) {
+            const card = document.createElement('div');
+            card.id = `session-card-${index}`;
+            card.className = `card-view p-1`;
 
-            promotionIds.forEach((promotionId, index) => {
-                const dreamWorkNumber = index + 1;
-                const fullUrl = `${baseUrl}?promotion_id=${promotionId}${fixedParams}`;
+            // 1. Create the IFRAME (Visual Element)
+            const iframe = document.createElement('iframe');
+            iframe.src = initialSrc;
+            iframe.className = 'iframe-preview rounded-t-md';
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'autoplay; encrypted-media');
+            iframe.setAttribute('allowfullscreen', '');
 
-                // Create wrapper with Tailwind styling and make it look clickable
-                const wrapper = document.createElement('div');
-                wrapper.className = 'iframe-wrapper bg-white rounded-xl shadow-lg hover:shadow-xl hover:ring-4 hover:ring-starmaker-dark transition duration-300 p-2 flex flex-col border border-gray-200 cursor-pointer';
+            // 2. Create the Monitoring Stats Div
+            const statsDiv = document.createElement('div');
+            statsDiv.className = 'p-2';
+            statsDiv.innerHTML = `
+                <p class="text-xs font-bold text-gray-900 mb-1">Session #${index}</p>
+                <span class="status-badge">SESSION ACTIVE</span>
+                <p class="text-xs text-gray-500 mt-1">New SID: <span class="font-medium text-indigo-700">${uniqueSid}</span></p>
+            `;
 
-                // Store the full URL in a data attribute
-                wrapper.dataset.url = fullUrl;
+            card.appendChild(iframe);
+            card.appendChild(statsDiv);
+            
+            return card;
+        }
 
-                // Add click event listener to the entire card
-                wrapper.addEventListener('click', function() {
-                    const urlToRedirect = this.dataset.url;
+        // === Main Automation Logic ===
+
+        function startAutomation() {
+            const link = targetLinkInput.value.trim();
+            
+            // Basic URL check to ensure it looks like a StarMaker link
+            if (!link || !link.includes('starmakerstudios.com')) {
+                globalStatus.textContent = "BOSS: StarMaker link-a correct-a podunga! ('starmakerstudios.com' irukkanum)";
+                globalStatus.classList.remove('bg-blue-100', 'bg-green-100');
+                globalStatus.classList.add('bg-red-100', 'text-red-800', 'font-semibold');
+                return;
+            }
+            
+            // Cleanup previous runs
+            viewsContainer.innerHTML = '';
+            startButton.disabled = true;
+            
+            globalStatus.classList.remove('text-gray-700', 'bg-red-100', 'bg-green-100');
+            globalStatus.classList.add('bg-blue-100', 'text-blue-800', 'font-semibold');
+            
+            // Status Message Update (Loading)
+            globalStatus.textContent = 'Launching Cover Promotion to 100 Users... Please wait for all promotion sessions to load.';
+
+            let firstUniqueSid = null;
+
+            // Loop to create and load 100 individual sessions
+            for (let i = 1; i <= NUMBER_OF_SESSIONS; i++) {
+                try {
+                    // 1. Generate Unique Link
+                    const uniqueLink = createUniqueStarMakerUrl(link, i);
                     
-                    // CALL THE AGGRESSIVE RESET FUNCTION HERE
-                    aggressiveCacheClear(); 
+                    // Extract the new SID for display
+                    const newSid = new URL(uniqueLink).searchParams.get('from_sid');
                     
-                    // Redirects the current window/tab (the main running app) to the iframe's source URL
-                    window.location.href = urlToRedirect; 
-                });
+                    if (i === 1) {
+                        firstUniqueSid = newSid;
+                    }
 
+                    // 2. Create Card and Iframe
+                    const card = createCard(i, uniqueLink, newSid);
+                    viewsContainer.appendChild(card);
 
-                // Display the new Title format: DreamWork X - Promotion ID: YYYY
-                const title = document.createElement('div');
-                title.className = 'iframe-title text-center text-base font-extrabold text-starmaker-dark p-1 mb-1 border-b-2 border-starmaker-green/50';
-                title.textContent = `DreamWork ${dreamWorkNumber} - Promotion ID: ${promotionId}`;
-                wrapper.appendChild(title);
+                } catch (error) {
+                    globalStatus.textContent = `CRITICAL ERROR: Link issue! ${error.message}. Please check the link.`;
+                    globalStatus.classList.remove('bg-blue-100');
+                    globalStatus.classList.add('bg-red-100', 'text-red-800', 'font-semibold');
+                    startButton.disabled = false;
+                    viewsContainer.innerHTML = ''; // Clear partial loads
+                    return;
+                }
+            }
+            
+            // Status Message Update (Success)
+            const originalSidCheck = new URL(link).searchParams.get('from_sid');
+            globalStatus.textContent = `PROMOTION SUCCESSFUL! Your StarMaker Cover is now viewing across 100 unique session IDs. Original SID was ${originalSidCheck}, the first unique SID is ${firstUniqueSid}.`;
+            globalStatus.classList.remove('bg-blue-100');
+            globalStatus.classList.add('bg-green-100', 'text-green-800', 'font-semibold');
+            startButton.disabled = false;
+        }
 
-                // Create iframe element (for preview)
-                const iframe = document.createElement('iframe');
-                iframe.setAttribute('src', fullUrl);
-                iframe.setAttribute('loading', 'lazy'); 
-                iframe.setAttribute('title', `Promotion Dashboard ${promotionId}`);
-                iframe.setAttribute('sandbox', 'allow-same-origin allow-popups allow-forms'); 
-                wrapper.appendChild(iframe);
-
-                container.appendChild(wrapper);
-            });
-        });
+        // === Event Listeners ===
+        startButton.addEventListener('click', startAutomation);
     </script>
-
 </body>
 </html>
 
