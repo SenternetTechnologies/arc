@@ -28,7 +28,6 @@
         .iframe-wrapper {
             /* Fixed height for display consistency in the grid */
             height: 400px; 
-            /* Added position relative for potential future overlays, and box sizing */
             box-sizing: border-box;
         }
         iframe {
@@ -36,7 +35,6 @@
             width: 100%;
             height: 100%;
             /* Setting pointer-events to none so clicks always hit the wrapper behind the iframe. */
-            /* This makes the whole card clickable for the JS event listener below. */
             pointer-events: none; 
         }
     </style>
@@ -45,13 +43,13 @@
 
     <!-- Header Section with Mobile-First Design -->
     <header class="text-center p-4 sm:p-6 bg-starmaker-green text-white shadow-xl">
-        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">StarMaker DreamWork - Promotion Dashboard</h1>
-        <p class="text-sm mt-1 opacity-90">10 Live Events Monitoring for Research (Click card to open in main window)</p>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">StarMaker DreamWork - Custom Promotion Dashboard</h1>
+        <p class="text-sm mt-1 opacity-90">11 Handpicked Events Monitoring (Click card to open in main window)</p>
     </header>
 
-    <!-- Main Content Grid -->
+    <!-- Main Content Grid: Updated for 4 columns on large screens (lg:grid-cols-4) -->
     <div class="container mx-auto p-3 sm:p-5 flex-grow">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="iframeContainer">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="iframeContainer">
             <!-- iFrames will be injected here by JavaScript -->
         </div>
     </div>
@@ -73,37 +71,38 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('iframeContainer');
-            // Base URL and fixed parameters as provided by the user
+            // Base URL and fixed parameters
             const baseUrl = "https://m.starmakerstudios.com/a/spa-dreamWorks/index";
             const fixedParams = "&showBar=0&showNavigation=false&new=true&isStatusBarStyle=true"; 
             
-            // Starting with the provided Promotion ID and generating 10
-            const startingPromotionId = 5925; 
-            const numberOfIframes = 10;
-
-            for (let i = 0; i < numberOfIframes; i++) {
-                const promotionId = startingPromotionId + i;
+            // Custom list of promotion IDs provided by Senthilkumar
+            const promotionIds = [
+                5925, 2711, 65777, 53939, 34448, 49399, 22225, 60223, 69686, 28440, 37838
+            ]; 
+            
+            promotionIds.forEach((promotionId, index) => {
+                // DreamWork number is 1-based index (1, 2, 3...)
+                const dreamWorkNumber = index + 1;
                 const fullUrl = `${baseUrl}?promotion_id=${promotionId}${fixedParams}`;
 
                 // Create wrapper with Tailwind styling and make it look clickable
                 const wrapper = document.createElement('div');
                 wrapper.className = 'iframe-wrapper bg-white rounded-xl shadow-lg hover:shadow-xl hover:ring-4 hover:ring-starmaker-dark transition duration-300 p-2 flex flex-col border border-gray-200 cursor-pointer';
 
-                // Store the full URL in a data attribute for easy access in the click handler
+                // Store the full URL in a data attribute
                 wrapper.dataset.url = fullUrl;
 
-                // Add click event listener to the entire card
+                // Add click event listener to the entire card to redirect
                 wrapper.addEventListener('click', function() {
                     const urlToRedirect = this.dataset.url;
-                    // Redirects the current window/tab (the main running app) to the iframe's source URL
                     window.location.href = urlToRedirect; 
                 });
 
 
-                // Display the Promotion ID clearly
+                // Display the new Title format: DreamWork X - Promotion ID: YYYY
                 const title = document.createElement('div');
-                title.className = 'iframe-title text-center text-sm font-bold text-gray-700 p-1 mb-1 border-b border-gray-100';
-                title.textContent = `Promotion ID: ${promotionId}`;
+                title.className = 'iframe-title text-center text-base font-extrabold text-starmaker-dark p-1 mb-1 border-b-2 border-starmaker-green/50';
+                title.textContent = `DreamWork ${dreamWorkNumber} - Promotion ID: ${promotionId}`;
                 wrapper.appendChild(title);
 
                 // Create iframe element (for preview)
@@ -111,13 +110,11 @@
                 iframe.setAttribute('src', fullUrl);
                 iframe.setAttribute('loading', 'lazy'); 
                 iframe.setAttribute('title', `Promotion Dashboard ${promotionId}`);
-                // Important: Added sandbox but removed 'allow-scripts' to potentially prevent the iframe from interfering with the main page, 
-                // but the key fix is the CSS 'pointer-events: none'.
                 iframe.setAttribute('sandbox', 'allow-same-origin allow-popups allow-forms'); 
                 wrapper.appendChild(iframe);
 
                 container.appendChild(wrapper);
-            }
+            });
         });
     </script>
 
