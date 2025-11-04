@@ -28,11 +28,16 @@
         .iframe-wrapper {
             /* Fixed height for display consistency in the grid */
             height: 400px; 
+            /* Added position relative for potential future overlays, and box sizing */
+            box-sizing: border-box;
         }
         iframe {
             /* Ensure iframe takes up all available space within its wrapper */
             width: 100%;
             height: 100%;
+            /* Setting pointer-events to none so clicks always hit the wrapper behind the iframe. */
+            /* This makes the whole card clickable for the JS event listener below. */
+            pointer-events: none; 
         }
     </style>
 </head>
@@ -41,7 +46,7 @@
     <!-- Header Section with Mobile-First Design -->
     <header class="text-center p-4 sm:p-6 bg-starmaker-green text-white shadow-xl">
         <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">StarMaker DreamWork - Promotion Dashboard</h1>
-        <p class="text-sm mt-1 opacity-90">10 Live Events Monitoring for Research (Data loads in iFrames)</p>
+        <p class="text-sm mt-1 opacity-90">10 Live Events Monitoring for Research (Click card to open in main window)</p>
     </header>
 
     <!-- Main Content Grid -->
@@ -80,9 +85,20 @@
                 const promotionId = startingPromotionId + i;
                 const fullUrl = `${baseUrl}?promotion_id=${promotionId}${fixedParams}`;
 
-                // Create wrapper with Tailwind styling
+                // Create wrapper with Tailwind styling and make it look clickable
                 const wrapper = document.createElement('div');
-                wrapper.className = 'iframe-wrapper bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 p-2 flex flex-col border border-gray-200';
+                wrapper.className = 'iframe-wrapper bg-white rounded-xl shadow-lg hover:shadow-xl hover:ring-4 hover:ring-starmaker-dark transition duration-300 p-2 flex flex-col border border-gray-200 cursor-pointer';
+
+                // Store the full URL in a data attribute for easy access in the click handler
+                wrapper.dataset.url = fullUrl;
+
+                // Add click event listener to the entire card
+                wrapper.addEventListener('click', function() {
+                    const urlToRedirect = this.dataset.url;
+                    // Redirects the current window/tab (the main running app) to the iframe's source URL
+                    window.location.href = urlToRedirect; 
+                });
+
 
                 // Display the Promotion ID clearly
                 const title = document.createElement('div');
@@ -90,12 +106,14 @@
                 title.textContent = `Promotion ID: ${promotionId}`;
                 wrapper.appendChild(title);
 
-                // Create iframe element
+                // Create iframe element (for preview)
                 const iframe = document.createElement('iframe');
                 iframe.setAttribute('src', fullUrl);
                 iframe.setAttribute('loading', 'lazy'); 
                 iframe.setAttribute('title', `Promotion Dashboard ${promotionId}`);
-                iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-forms'); // Added sandbox for security/compatibility
+                // Important: Added sandbox but removed 'allow-scripts' to potentially prevent the iframe from interfering with the main page, 
+                // but the key fix is the CSS 'pointer-events: none'.
+                iframe.setAttribute('sandbox', 'allow-same-origin allow-popups allow-forms'); 
                 wrapper.appendChild(iframe);
 
                 container.appendChild(wrapper);
